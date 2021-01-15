@@ -11,7 +11,6 @@ public void Block_OnPluginStart()
 
     HookEvent("player_spawn", Block_OnPlayerSpawn);
     HookEvent("round_start", Block_OnRoundStart);
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////
