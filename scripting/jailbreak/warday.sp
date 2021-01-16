@@ -1,3 +1,5 @@
+#pragma semicolon 1
+
 #include <sourcemod>
 
 public void Warday_OnPluginStart()

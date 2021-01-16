@@ -1,3 +1,5 @@
+#pragma semicolon 1
+
 #include <sourcemod>
 
 public Action OnClientSayCommand(int client, const char[] command, const char[] sArgs)
