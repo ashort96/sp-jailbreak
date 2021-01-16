@@ -1,61 +1,47 @@
-#include <cstrike>
 #include <sourcemod>
 
-public void WardenText_OnPluginStart()
+public Action OnClientSayCommand(int client, const char[] command, const char[] sArgs)
 {
-    CreateTimer(1.0, Timer_PrintWardenText, _, TIMER_REPEAT);
-}
-
-public APLRes WardenText_AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
-{
-    CreateNative("EnableWardenText", Native_EnableWardenText);
-    CreateNative("DisableWardenText", Native_DisableWardenText);
-    return APLRes_Success;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// Natvies
-///////////////////////////////////////////////////////////////////////////////
-public any Native_EnableWardenText(Handle plugin, int numParams)
-{
-    g_WardenTextEnable = true;
-}
-
-public any Native_DisableWardenText(Handle plugin, int numParams)
-{
-    g_WardenTextEnable = false;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// Timers
-///////////////////////////////////////////////////////////////////////////////
-public Action Timer_PrintWardenText(Handle timer)
-{
-    if (!g_WardenTextEnable)
+    if (g_WardenID != client)
         return Plugin_Continue;
-    
-    char buf[256];
 
-    if (g_WardenID != INVALID_WARDEN)
-    {
-        Format(buf, sizeof(buf), "Current Warden: %N", g_WardenID);
-    }
-    else
-    {
-        Format(buf, sizeof(buf), "Current Warden: N/A");
-    }
+    static const char color1[] = "\x07000000";
+    static const char color2[] = "\x07FFFFFF";
 
-    Handle hudText = CreateHudSynchronizer();
-    SetHudTextParams(1.5, -1.7, 1.0, 255, 255, 255, 255);
-
-    for (int i = 1; i < MaxClients; i++)
+    if (!StrEqual(command, "say_team"))
     {
-        if (IsValidClient(i))
+        if (!CheckCommandAccess(client, "sm_say", ADMFLAG_CHAT))
         {
-            ShowSyncHudText(i, hudText, buf);
+            PrintToChatAll("%s %N %s: %s%s", WARDEN_PLAYER_PREFIX, client, color1, color2, sArgs);
+            LogAction(client, -1, "[Warden] %N : %s", client, sArgs);
+            return Plugin_Handled;
+        }
+        else
+        {
+            if (sArgs[0] != '@')
+            {
+                PrintToChatAll("%s %N %s: %s%s", WARDEN_PLAYER_PREFIX, client, color1, color2, sArgs);
+                LogAction(client, -1, "[Warden] %N : %s", client, sArgs);
+                return Plugin_Handled;
+            }
         }
     }
 
-    return Plugin_Continue;
+    else
+    {
+        for (int i = 1; i < MaxClients; i++)
+        {
+            if (IsValidClient(i) && GetClientTeam(i) == CS_TEAM_CT)
+            {
+                if (sArgs[0] != '@')
+                {
+                    PrintToChat(i, "\x01(Counter-Terrorist) %s %N %s: %s%s", WARDEN_PLAYER_PREFIX, client, color1, color2, sArgs);
+                }
+            }
+        }
+        LogAction(client, -1, "[Warden] (CT) %N : %s", client, sArgs);                    
+        return Plugin_Handled;
+    }
 
+    return Plugin_Handled;
 }

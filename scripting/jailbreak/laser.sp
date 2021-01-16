@@ -4,8 +4,8 @@
 int g_LaserBeam;
 int g_LaserPoint;
 
-bool g_DrawLaser = false;
-bool g_LaserUse = false;
+bool g_DrawLaser;
+bool g_LaserUse;
 
 float g_PreviousPosition[3];
 
@@ -19,6 +19,9 @@ public void Laser_OnMapStart()
 
 public void Laser_OnPluginStart()
 {
+    g_DrawLaser = false;
+    g_LaserUse = false;
+
     RegConsoleCmd("sm_laser", Command_Laser);
 }
 
@@ -31,6 +34,12 @@ public APLRes Laser_AskPluginLoad2(Handle myself, bool late, char[] error, int e
 
 public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3], float angles[3], int &weapon)
 {
+
+    if (client != g_WardenID)
+    {
+        return Plugin_Continue;
+    }
+
     if (!g_WardenLaserEnabled)
     {
         return Plugin_Continue;
@@ -48,7 +57,7 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
 
     if (client == g_WardenID && g_LaserUse && IsValidClient(client))
     {
-        SetupLaser(client, {118, 9, 186, 255});
+        SetupLaser(client, COLOR_PURPLE);
     }
 
     if (client == g_WardenID && g_DrawLaser)
@@ -130,9 +139,15 @@ public int MenuHandler_Laser(Menu menu, MenuAction action, int client, int param
         switch(param2)
         {
             case 1:
+            {
                 g_DrawLaser = false;
+                PrintToChat(client, "%s Draw Laser disabled", JB_PREFIX);
+            }
             case 2:
+            {
                 g_DrawLaser = true;
+                PrintToChat(client, "%s Draw Laser enabled", JB_PREFIX);
+            }
         }
 
     }

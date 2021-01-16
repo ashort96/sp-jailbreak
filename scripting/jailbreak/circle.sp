@@ -29,7 +29,7 @@ public Action Timer_WardenCircle(Handle timer)
             float vec[3];
             GetClientAbsOrigin(i, vec);
             vec[2] += 10;
-            TE_SetupBeamRingPoint(vec, 35.0, 35.1, g_BeamSprite, g_HaloSprite, 0, 5, 0.1, 5.2, 0.0, {1, 153, 255, 255}, 1000, 0);
+            TE_SetupBeamRingPoint(vec, 35.0, 35.1, g_BeamSprite, g_HaloSprite, 0, 5, 0.1, 5.2, 0.0, COLOR_PURPLE, 1000, 0);
             TE_SendToAll();
         }
     }

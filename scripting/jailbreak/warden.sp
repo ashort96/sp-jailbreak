@@ -13,6 +13,12 @@ public void Warden_OnPluginStart()
 
     HookEvent("player_death", Warden_OnPlayerDeath);
     HookEvent("player_disconnect", Warden_OnPlayerDisconnect);
+    HookEvent("round_end", Warden_OnRoundEnd);
+}
+
+public void Warden_OnMapStart()
+{
+    g_WardenID = INVALID_WARDEN;
 }
 
 public APLRes Warden_AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
@@ -77,12 +83,11 @@ public Action Command_Warden(int client, int args)
         return Plugin_Handled;
     }
 
-    // TODO: Add check if Special Day 
     PrintCenterTextAll("New Warden: %N", client);
     PrintToChatAll("%s New Warden: %N", WARDEN_PREFIX, client);
 
     g_WardenID = client;
-    SetEntityRenderColor(client, 0, 0, 255, 255);
+    SetEntityRenderColor(client, 118, 9, 186, 255);
 
     // Print Commands to the Warden
     char color1[] = "\x07FF0000";
@@ -94,18 +99,29 @@ public Action Command_Warden(int client, int args)
     PrintToChat(client,"%s!wb         %s- %sturn on block", color1, color2, color3);
     PrintToChat(client,"%s!wub       %s- %sturn off block", color1, color2, color3);
     PrintToChat(client,"%s!laser       %s- %sswitch point/draw laser", color1, color2, color3);
-    PrintToChat(client,"%s!laser_color       %s- %schange laser color", color1, color2, color3);
     PrintToChat(client,"%s!marker  %s- %s+marker, use mouse to adjust size, then -marker", color1, color2, color3);
     // PrintToChat(client,"%s!wsd           %s- %sstart sd after %d rounds", color1, color2, color3, ROUND_WARDEN_SD);
-    PrintToChat(client,"%s!color           %s- %scolor players'", color1, color2, color3);	
-    PrintToChat(client,"%s!reset_color           %s- %sreset player colors'", color1, color2, color3);
+
+
+    if (g_WardayRoundCooldown == 0)
+    {
+        PrintToChat(client, "%s You can call a warday!", WARDEN_PREFIX);
+        PrintToChat(client, "%s!warday <location>", color1);
+    }
 
     return Plugin_Handled;
 }
 
 public Action Command_Unwarden(int client, int args)
 {
+    if (client != g_WardenID)
+    {
+        PrintToChat(client, "%s You can't fire the Warden!", WARDEN_PREFIX);
+        return Plugin_Handled;
+    }
     Callback_RemoveWarden();
+    return Plugin_Handled;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -121,27 +137,45 @@ public Action Command_RemoveWarden(int client, int args)
 ///////////////////////////////////////////////////////////////////////////////
 public void Warden_OnPlayerDeath(Handle event, const char[] name, bool dontBroadcast)
 {
-    Callback_RemoveWarden();
+    int client = GetClientOfUserId(GetEventInt(event, "userid"));
+    if (g_WardenID == client)
+    {
+        Callback_RemoveWarden();
+    }
 }
 
 public void Warden_OnPlayerDisconnect(Handle event, const char[] name, bool dontBroadcast)
 {
-    PrintToChatAll("%s The Warden has left the game!", WARDEN_PREFIX);
-    Callback_RemoveWarden();
+    int client = GetClientOfUserId(GetEventInt(event, "userid"));
+    if (g_WardenID == client)
+    {
+        PrintToChatAll("%s The Warden has left the game!", WARDEN_PREFIX);
+        Callback_RemoveWarden();
+    }
+}
+
+public void Warden_OnRoundEnd(Handle event, const char[] name, bool dontBroadcast)
+{
+
+    Callback_RemoveWarden(true);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // Callbacks
 ///////////////////////////////////////////////////////////////////////////////
-public void Callback_RemoveWarden()
+void Callback_RemoveWarden(bool dontBroadcast = false)
 {
     if (g_WardenID == INVALID_WARDEN)
     {
         return;
     }
 
-    PrintCenterTextAll("%N is no longer Warden!", g_WardenID);
-    PrintToChatAll("%N is no longer Warden!", g_WardenID);
+    if (!dontBroadcast)
+    {
+        PrintCenterTextAll("%N is no longer Warden!", g_WardenID);
+        PrintToChatAll("%s %N is no longer Warden!", WARDEN_PREFIX, g_WardenID);
+    }
+
 
     SetEntityRenderColor(g_WardenID, 255, 255, 255, 255);
 

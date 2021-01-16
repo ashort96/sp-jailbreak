@@ -14,8 +14,10 @@
 #include "jailbreak/block.sp"
 #include "jailbreak/circle.sp"
 #include "jailbreak/laser.sp"
+#include "jailbreak/warday.sp"
 #include "jailbreak/warden.sp"
 #include "jailbreak/warden_text.sp"
+#include "jailbreak/warden_hud.sp"
 
 public Plugin myinfo =
 {
@@ -45,14 +47,15 @@ public void OnPluginStart()
     Block_OnPluginStart();
     Circle_OnPluginStart();
     Laser_OnPluginStart();
+    Warday_OnPluginStart();
     Warden_OnPluginStart();
-    WardenText_OnPluginStart();
+    WardenHud_OnPluginStart();
 
 }
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
     Warden_AskPluginLoad2(myself, late, error, err_max);
-    WardenText_AskPluginLoad2(myself, late, error, err_max);
+    WardenHud_AskPluginLoad2(myself, late, error, err_max);
     return APLRes_Success;
 }

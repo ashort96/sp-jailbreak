@@ -3,8 +3,8 @@
 
 public void Block_OnPluginStart()
 {
-    RegConsoleCmd("wb", Command_WardenBlock);
-    RegConsoleCmd("wub", Command_WardenUnblock);
+    RegConsoleCmd("sm_wb", Command_WardenBlock);
+    RegConsoleCmd("sm_wub", Command_WardenUnblock);
 
     RegAdminCmd("sm_block", Command_Block, ADMFLAG_KICK);
     RegAdminCmd("sm_ublock", Command_Unblock, ADMFLAG_KICK);
@@ -70,13 +70,13 @@ public void Block_OnPlayerSpawn(Handle event, const char[] name, bool dontBroadc
 
 public void Block_OnRoundStart(Handle event, const char[] name, bool dontBroadcast)
 {
-    Callback_EnableBlock();
+    Callback_EnableBlock(true);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // Callbacks
 ///////////////////////////////////////////////////////////////////////////////
-public void Callback_EnableBlock()
+void Callback_EnableBlock(bool dontBroadcast = false)
 {
     g_BlockEnabled = true;
     
@@ -85,9 +85,12 @@ public void Callback_EnableBlock()
         if (IsValidClient(i) && IsPlayerAlive(i))
             SetEntityCollisionGroup(i, COLLISION_GROUP_PLAYER);
     }
+    if (!dontBroadcast)
+        PrintCenterTextAll("Block enabled!");
+
 }
 
-public void Callback_DisableBlock()
+void Callback_DisableBlock()
 {
     g_BlockEnabled = false;
 
@@ -96,5 +99,7 @@ public void Callback_DisableBlock()
         if (IsValidClient(i) && IsPlayerAlive(i))
             SetEntityCollisionGroup(i, COLLISION_GROUP_DEBRIS_TRIGGER);
     }
+
+    PrintCenterTextAll("Noblock Enabled!");
 
 }
