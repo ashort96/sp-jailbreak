@@ -13,6 +13,7 @@
 
 #include "jailbreak/block.sp"
 #include "jailbreak/circle.sp"
+#include "jailbreak/laser.sp"
 #include "jailbreak/warden.sp"
 #include "jailbreak/warden_text.sp"
 
@@ -28,6 +29,7 @@ public Plugin myinfo =
 public void OnMapStart()
 {
     Circle_OnMapStart();
+    Laser_OnMapStart();
 }
 
 public void OnPluginStart()
@@ -42,6 +44,7 @@ public void OnPluginStart()
 
     Block_OnPluginStart();
     Circle_OnPluginStart();
+    Laser_OnPluginStart();
     Warden_OnPluginStart();
     WardenText_OnPluginStart();
 

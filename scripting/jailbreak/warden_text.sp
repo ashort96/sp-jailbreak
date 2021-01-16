@@ -10,6 +10,7 @@ public APLRes WardenText_AskPluginLoad2(Handle myself, bool late, char[] error, 
 {
     CreateNative("EnableWardenText", Native_EnableWardenText);
     CreateNative("DisableWardenText", Native_DisableWardenText);
+    return APLRes_Success;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
