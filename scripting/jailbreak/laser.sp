@@ -130,9 +130,9 @@ public int MenuHandler_Laser(Menu menu, MenuAction action, int client, int param
         switch(param2)
         {
             case 1:
-                g_DrawLaser = true;
-            case 2:
                 g_DrawLaser = false;
+            case 2:
+                g_DrawLaser = true;
         }
 
     }
