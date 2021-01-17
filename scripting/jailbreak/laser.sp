@@ -8,6 +8,7 @@ int g_LaserPoint;
 
 bool g_DrawLaser;
 bool g_LaserUse;
+bool g_LaserEnabled;
 
 float g_PreviousPosition[3];
 
@@ -23,6 +24,7 @@ public void Laser_OnPluginStart()
 {
     g_DrawLaser = false;
     g_LaserUse = false;
+    g_LaserEnabled = true;
 
     RegConsoleCmd("sm_laser", Command_Laser);
 }
@@ -42,7 +44,7 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
         return Plugin_Continue;
     }
 
-    if (!g_WardenLaserEnabled)
+    if (!g_LaserEnabled)
     {
         return Plugin_Continue;
     }
@@ -72,8 +74,6 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
     }
 
     return Plugin_Continue;
-
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -81,12 +81,12 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
 ///////////////////////////////////////////////////////////////////////////////
 public any Native_EnableWardenLaser(Handle plugin, int numParams)
 {
-    g_WardenLaserEnabled = true;
+    g_LaserEnabled = true;
 }
 
 public any Native_DisableWardenLaser(Handle plugin, int numParams)
 {
-    g_WardenLaserEnabled = false;
+    g_LaserEnabled = false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -104,6 +104,7 @@ public Action Command_Laser(int client, int args)
     laserPanel.SetTitle("Laser Selection");
     laserPanel.DrawItem("Normal Laser");
     laserPanel.DrawItem("Draw Laser");
+    laserPanel.DrawItem("Disable Laser");
 
     laserPanel.Send(client, MenuHandler_Laser, 20);
     return Plugin_Handled;
@@ -142,13 +143,21 @@ public int MenuHandler_Laser(Menu menu, MenuAction action, int client, int param
         {
             case 1:
             {
+                g_LaserEnabled = true;
                 g_DrawLaser = false;
-                PrintToChat(client, "%s Draw Laser disabled", JB_PREFIX);
+                PrintToChat(client, "%s Normal Laser enabled", JB_PREFIX);
             }
             case 2:
             {
+                g_LaserEnabled = true;
                 g_DrawLaser = true;
                 PrintToChat(client, "%s Draw Laser enabled", JB_PREFIX);
+            }
+            case 3:
+            {
+                g_LaserEnabled = false;
+                g_DrawLaser = false
+                PrintToChat(client, "%s Laser disabled", JB_PREFIX);
             }
         }
 

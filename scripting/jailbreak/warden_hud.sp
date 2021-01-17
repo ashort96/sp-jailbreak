@@ -40,11 +40,11 @@ public Action Timer_PrintWardenHud(Handle timer)
 
     if (g_WardenID != INVALID_WARDEN)
     {
-        Format(buf, sizeof(buf), "Current Warden: %N", g_WardenID);
+        Format(buf, sizeof(buf), "Warden: %N", g_WardenID);
     }
     else
     {
-        Format(buf, sizeof(buf), "Current Warden: N/A");
+        Format(buf, sizeof(buf), "Warden: N/A");
     }
 
     Handle hudText = CreateHudSynchronizer();
@@ -59,5 +59,4 @@ public Action Timer_PrintWardenHud(Handle timer)
     }
 
     return Plugin_Continue;
-
 }

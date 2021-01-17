@@ -7,7 +7,6 @@ public void Warday_OnPluginStart()
     RegConsoleCmd("sm_warday", Command_Warday);
 
     HookEvent("round_start", Warday_OnRoundStart);
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -55,15 +54,11 @@ public Action Command_Warday(int client, int args)
     }
 
     return Plugin_Handled;
-
 }
-
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // Event Hooks
 ///////////////////////////////////////////////////////////////////////////////
-
 public void Warday_OnRoundStart(Handle event, const char[] name, bool dontBroadcast)
 {
     if (g_WardayRoundCooldown > 0)
