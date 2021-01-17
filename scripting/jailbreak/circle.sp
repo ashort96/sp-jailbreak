@@ -14,7 +14,6 @@ public void Circle_OnMapStart()
 public void Circle_OnPluginStart()
 {
     CreateTimer(0.1, Timer_WardenCircle, _, TIMER_REPEAT);
-    CreateTimer(0.1, Timer_WardenCircle, _, TIMER_REPEAT);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
