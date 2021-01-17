@@ -29,13 +29,6 @@ public void Laser_OnPluginStart()
     RegConsoleCmd("sm_laser", Command_Laser);
 }
 
-public APLRes Laser_AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
-{
-    CreateNative("EnableWardenLaser", Native_EnableWardenLaser);
-    CreateNative("DisableWardenLaser", Native_DisableWardenLaser);
-    return APLRes_Success;
-}
-
 public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3], float angles[3], int &weapon)
 {
 
@@ -74,19 +67,6 @@ public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3
     }
 
     return Plugin_Continue;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// Natives
-///////////////////////////////////////////////////////////////////////////////
-public any Native_EnableWardenLaser(Handle plugin, int numParams)
-{
-    g_LaserEnabled = true;
-}
-
-public any Native_DisableWardenLaser(Handle plugin, int numParams)
-{
-    g_LaserEnabled = false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -156,7 +136,7 @@ public int MenuHandler_Laser(Menu menu, MenuAction action, int client, int param
             case 3:
             {
                 g_LaserEnabled = false;
-                g_DrawLaser = false
+                g_DrawLaser = false;
                 PrintToChat(client, "%s Laser disabled", JB_PREFIX);
             }
         }

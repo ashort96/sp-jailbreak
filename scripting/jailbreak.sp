@@ -57,7 +57,6 @@ public void OnPluginStart()
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
-    Laser_AskPluginLoad2(myself, late, error, err_max);
     Warden_AskPluginLoad2(myself, late, error, err_max);
     WardenHud_AskPluginLoad2(myself, late, error, err_max);
     return APLRes_Success;
