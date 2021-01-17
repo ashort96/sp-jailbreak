@@ -3,6 +3,8 @@
 #include <SetCollisionGroup>
 #include <sourcemod>
 
+bool g_BlockEnabled;
+
 public void Block_OnPluginStart()
 {
     RegConsoleCmd("sm_wb", Command_WardenBlock);
@@ -13,6 +15,8 @@ public void Block_OnPluginStart()
 
     HookEvent("player_spawn", Block_OnPlayerSpawn);
     HookEvent("round_start", Block_OnRoundStart);
+
+    g_BlockEnabled = true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

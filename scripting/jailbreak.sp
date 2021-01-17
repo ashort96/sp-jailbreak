@@ -17,8 +17,8 @@
 #include "jailbreak/marker.sp"
 #include "jailbreak/warday.sp"
 #include "jailbreak/warden.sp"
-#include "jailbreak/warden_text.sp"
 #include "jailbreak/warden_hud.sp"
+#include "jailbreak/warden_text.sp"
 
 public Plugin myinfo =
 {
