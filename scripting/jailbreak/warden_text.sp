@@ -31,7 +31,7 @@ public Action OnClientSayCommand(int client, const char[] command, const char[] 
 
     else
     {
-        for (int i = 1; i < MaxClients; i++)
+        for (int i = 1; i <= MaxClients; i++)
         {
             if (IsValidClient(i) && GetClientTeam(i) == CS_TEAM_CT)
             {

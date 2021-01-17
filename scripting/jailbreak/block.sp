@@ -82,7 +82,7 @@ void Callback_EnableBlock(bool dontBroadcast = false)
 {
     g_BlockEnabled = true;
     
-    for (int i = 1; i < MaxClients; i++)
+    for (int i = 1; i <= MaxClients; i++)
     {
         if (IsValidClient(i) && IsPlayerAlive(i))
             SetEntityCollisionGroup(i, COLLISION_GROUP_PLAYER);
@@ -96,7 +96,7 @@ void Callback_DisableBlock()
 {
     g_BlockEnabled = false;
 
-    for (int i = 1; i < MaxClients; i++)
+    for (int i = 1; i <= MaxClients; i++)
     {
         if (IsValidClient(i) && IsPlayerAlive(i))
             SetEntityCollisionGroup(i, COLLISION_GROUP_DEBRIS_TRIGGER);

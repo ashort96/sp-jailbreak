@@ -45,7 +45,7 @@ public Action Command_Warday(int client, int args)
     char buf[64];
     Format(buf, sizeof(buf), "Warday: %s", location);
 
-    for (int i = 1; i < MaxClients; i++)
+    for (int i = 1; i <= MaxClients; i++)
     {
         if (IsValidClient(i))
         {

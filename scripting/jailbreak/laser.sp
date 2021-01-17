@@ -155,12 +155,7 @@ public int MenuHandler_Laser(Menu menu, MenuAction action, int client, int param
 ///////////////////////////////////////////////////////////////////////////////
 // Helper Functions
 ///////////////////////////////////////////////////////////////////////////////
-stock bool TraceFilter_IgnorePlayers(int entity, int contentsMask)
-{
-    return !IsValidClient(entity);
-}
-
-stock void GetClientSightEnd(int client, float out[3])
+void GetClientSightEnd(int client, float out[3])
 {
     float eyes[3];
     float angles[3];
@@ -176,7 +171,7 @@ stock void GetClientSightEnd(int client, float out[3])
     }
 }
 
-stock void SetupLaser(int client, int color[4])
+void SetupLaser(int client, int color[4])
 {
 
     float origin[3];

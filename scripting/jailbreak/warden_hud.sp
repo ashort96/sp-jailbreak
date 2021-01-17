@@ -50,7 +50,7 @@ public Action Timer_PrintWardenHud(Handle timer)
     Handle hudText = CreateHudSynchronizer();
     SetHudTextParams(-1.5, -1.7, 1.0, 255, 255, 255, 255);
 
-    for (int i = 1; i < MaxClients; i++)
+    for (int i = 1; i <= MaxClients; i++)
     {
         if (IsValidClient(i))
         {

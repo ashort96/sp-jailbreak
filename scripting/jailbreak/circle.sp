@@ -21,7 +21,7 @@ public void Circle_OnPluginStart()
 ///////////////////////////////////////////////////////////////////////////////
 public Action Timer_WardenCircle(Handle timer)
 {
-    for (int i = 1; i < MaxClients; i++)
+    for (int i = 1; i <= MaxClients; i++)
     {
         if (IsValidClient(i) && IsPlayerAlive(i) && i == g_WardenID)
         {
