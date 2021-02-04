@@ -94,10 +94,8 @@ public int MenuHandler_Marker(Menu menu, MenuAction action, int param1, int para
             ToggleDrawing(param1, !g_MarkerStatus);
         }
 
-        if (g_MarkerStatus)
-        {
-            menu.Display(param1, MENU_TIME_FOREVER);
-        }
+        menu.Display(param1, MENU_TIME_FOREVER);
+ 
     }
 
     else if (action == MenuAction_DisplayItem)
@@ -112,6 +110,11 @@ public int MenuHandler_Marker(Menu menu, MenuAction action, int param1, int para
         }
 
         return RedrawMenuItem(display);
+    }
+
+    else if (action == MenuAction_End)
+    {
+        delete menu;
     }
 
     return 0;
