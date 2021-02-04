@@ -83,7 +83,9 @@ public Action Command_Laser(int client, int args)
     Panel laserPanel = new Panel();
     laserPanel.SetTitle("Laser Selection");
     laserPanel.DrawItem("Normal Laser");
+
     laserPanel.DrawItem("Draw Laser");
+
     laserPanel.DrawItem("Disable Laser");
 
     laserPanel.Send(client, MenuHandler_Laser, 20);
@@ -129,9 +131,16 @@ public int MenuHandler_Laser(Menu menu, MenuAction action, int client, int param
             }
             case 2:
             {
-                g_LaserEnabled = true;
-                g_DrawLaser = true;
-                PrintToChat(client, "%s Draw Laser enabled", JB_PREFIX);
+                if (!CheckCommandAccess(client, "sm_jailbreak_use_draw_laser", ADMFLAG_RESERVATION))
+                {
+                    PrintToChat(client, "%s Only Members and above can use this!", JB_PREFIX);
+                }
+                else
+                {
+                    g_LaserEnabled = true;
+                    g_DrawLaser = true;
+                    PrintToChat(client, "%s Draw Laser enabled", JB_PREFIX);                    
+                }
             }
             case 3:
             {
