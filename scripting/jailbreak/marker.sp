@@ -24,8 +24,8 @@ public void Marker_OnPluginStart()
 
 public void Marker_OnMapStart()
 {
-    g_MarkerBeam = PrecacheModel("materials/sprites/player_radio_ring_offscreen.vmt", true);
-    g_MarkerHalo = PrecacheModel("materials/sprites/player_radio_ring_offscreen.vmt", true);
+    g_MarkerBeam = PrecacheModel("materials/sprites/hostage_following_offscreen.vmt", true);
+    g_MarkerHalo = PrecacheModel("materials/sprites/hostage_following_offscreen.vmt", true);
 
     CreateTimer(0.1, Timer_MarkerDraw, _, TIMER_REPEAT);
 }
@@ -138,7 +138,7 @@ public Action Timer_MarkerDraw(Handle timer)
 
         float dist = GetVectorDistance(g_MarkerPoints[0], g_MarkerPoints[1]) * 2.0;
 
-        TE_SetupBeamRingPoint(g_MarkerPoints[0], dist - 0.1, dist, g_MarkerBeam, g_MarkerHalo, 0, 60, 0.1, 5.0, 0.0, {0, 0, 255, 255}, 10, 0);
+        TE_SetupBeamRingPoint(g_MarkerPoints[0], dist - 0.1, dist, g_MarkerBeam, g_MarkerHalo, 0, 60, 0.1, 5.0, 0.0, {0, 255, 0, 255}, 10, 0);
         TE_SendToAll();
     }
 

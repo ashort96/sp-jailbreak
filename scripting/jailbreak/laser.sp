@@ -27,6 +27,10 @@ public void Laser_OnPluginStart()
     g_LaserEnabled = true;
 
     RegConsoleCmd("sm_laser", Command_Laser);
+
+    HookEvent("player_death", Event_LaserPlayerDeath);
+    HookEvent("round_start", Event_LaserRoundStart);
+
 }
 
 public Action OnPlayerRunCmd(int client, int &buttons, int &impulse, float vel[3], float angles[3], int &weapon)
@@ -91,6 +95,8 @@ public Action Command_Laser(int client, int args)
     laserPanel.Send(client, MenuHandler_Laser, 20);
     return Plugin_Handled;
 }
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Timers
@@ -160,6 +166,26 @@ public int MenuHandler_Laser(Menu menu, MenuAction action, int client, int param
         delete menu;
     }
 } 
+
+
+public void Event_LaserPlayerDeath(Handle event, const char[] name, bool dontBroasdcast)
+{
+    int client = GetClientOfUserId(GetEventInt(event, "userid"));
+
+    if (client == g_WardenID)
+    {
+        g_LaserEnabled = true;
+        g_DrawLaser = false;
+    }
+}
+
+public void Event_LaserRoundStart(Handle event, const char[] name, bool dontBroasdcast)
+{
+    g_LaserEnabled = true;
+    g_DrawLaser = false;
+}
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Helper Functions

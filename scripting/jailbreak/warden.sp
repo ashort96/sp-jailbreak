@@ -6,6 +6,7 @@
 
 public void Warden_OnPluginStart()
 {
+    RegConsoleCmd("jointeam", Warden_OnJoinTeam);
     RegConsoleCmd("sm_w", Command_Warden);
     RegConsoleCmd("sm_uw", Command_Unwarden);
 
@@ -122,6 +123,19 @@ public Action Command_Unwarden(int client, int args)
     Callback_RemoveWarden();
     return Plugin_Handled;
 
+}
+
+public Action Warden_OnJoinTeam(int client, int args)
+{
+    char teamString[3];
+    GetCmdArg(1, teamString, sizeof(teamString));
+    int newTeam = StringToInt(teamString);
+
+    if (client == g_WardenID && newTeam != CS_TEAM_CT)
+    {
+        PrintToChatAll("%s The Warden has left the team!", WARDEN_PREFIX);
+        Callback_RemoveWarden();
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
