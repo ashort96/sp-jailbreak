@@ -113,11 +113,6 @@ public int MenuHandler_Marker(Menu menu, MenuAction action, int param1, int para
         return RedrawMenuItem(display);
     }
 
-    else if (action == MenuAction_End)
-    {
-        delete menu;
-    }
-
     return 0;
 }
 
