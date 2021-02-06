@@ -55,6 +55,8 @@ public void OnPluginStart()
     Warden_OnPluginStart();
     WardenHud_OnPluginStart();
 
+    HookEvent("player_spawn", OnPlayerSpawn);
+
 }
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
@@ -62,4 +64,15 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
     Warden_AskPluginLoad2(myself, late, error, err_max);
     WardenHud_AskPluginLoad2(myself, late, error, err_max);
     return APLRes_Success;
+}
+
+public Action OnPlayerSpawn(Handle event, const char[] name, bool dontBroadcast)
+{
+    int client = GetClientOfUserId(GetEventInt(event, "userid"));
+
+    if (GetClientTeam(client) == CS_TEAM_CT)
+    {
+        GivePlayerItem(client, "item_kevlar");
+        SetEntProp(client, Prop_Send, "m_ArmorValue", 50, 1);
+    }
 }
