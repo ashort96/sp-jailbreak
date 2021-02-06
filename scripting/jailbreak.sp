@@ -13,6 +13,7 @@
 
 #include "jailbreak/block.sp"
 #include "jailbreak/circle.sp"
+#include "jailbreak/forwards.sp"
 #include "jailbreak/laser.sp"
 #include "jailbreak/marker.sp"
 #include "jailbreak/warday.sp"

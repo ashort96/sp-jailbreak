@@ -62,6 +62,18 @@ native any EnableWardenHud();
 */
 native any DisableWardenHud();
 
+/**
+* Called when a client becomes Warden.
+* @param    client  Client index
+*/
+forward void Jailbreak_OnWardenBecome(int client);
+
+/**
+* Called when a client is no longer the Warden. Make sure you verify
+* that the client is still valid.
+* @param    client  Client index
+*/
+forward void Jailbreak_OnWardenRemove(int client);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Stocks

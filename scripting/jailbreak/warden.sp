@@ -110,6 +110,8 @@ public Action Command_Warden(int client, int args)
         PrintToChat(client, "%s!warday <location>", color1);
     }
 
+    FireOnWardenBecome(g_WardenID);
+
     return Plugin_Handled;
 }
 
@@ -190,6 +192,7 @@ void Callback_RemoveWarden(bool dontBroadcast = false)
         PrintToChatAll("%s %N is no longer Warden!", WARDEN_PREFIX, g_WardenID);
     }
 
+    FireOnWardenRemove(g_WardenID);
 
     SetEntityRenderColor(g_WardenID, 255, 255, 255, 255);
 
