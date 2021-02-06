@@ -1,3 +1,8 @@
+#if defined _jailbreak_included
+    #endinput
+#endif
+#define _jailbreak_included
+
 #define JB_PREFIX "\x04[GP Jailbreak]\x07F8F8FF"
 #define WARDEN_PREFIX "\x04[GP Warden]\x07F8F8FF"
 #define WARDEN_PLAYER_PREFIX "\x04[GP Warden]\x07B94FFF"
