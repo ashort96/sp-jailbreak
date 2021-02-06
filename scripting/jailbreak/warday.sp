@@ -1,8 +1,12 @@
 #pragma semicolon 1
 
+#include <sdktools>
 #include <sourcemod>
 
+
 bool g_WardayActive;
+
+static const char sound[] = "npc/attack_helicopter/aheli_damaged_alarm1.wav";
 
 public void Warday_OnPluginStart()
 {
@@ -13,6 +17,11 @@ public void Warday_OnPluginStart()
 
     HookEvent("round_start", Warday_OnRoundStart);
     HookEvent("round_end", Warday_OnRoundEnd);
+}
+
+public void Warday_OnMapStart()
+{
+    PrecacheSound(sound);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,7 +58,8 @@ public Action Command_Warday(int client, int args)
     DataPack hPack;
     CreateDataTimer(1.0, Timer_PrintWardayHud, hPack, TIMER_REPEAT);
     hPack.WriteString(location);
-
+    EmitSoundToAll(sound);
+    PrintCenterTextAll("WARDAY!!!");
     return Plugin_Handled;
 }
 

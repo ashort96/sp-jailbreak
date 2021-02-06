@@ -35,6 +35,7 @@ public void OnMapStart()
     Circle_OnMapStart();
     Laser_OnMapStart();
     Marker_OnMapStart();
+    Warday_OnMapStart();
 }
 
 public void OnPluginStart()

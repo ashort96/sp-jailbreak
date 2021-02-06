@@ -21,7 +21,6 @@ void FireOnWardenBecome(int client)
         hForward = new GlobalForward("Jailbreak_OnWardenBecome", ET_Ignore, Param_Cell);
     }
 
-
     Call_StartForward(hForward);
     Call_PushCell(client);
     Call_Finish();
