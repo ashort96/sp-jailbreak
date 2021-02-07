@@ -30,6 +30,7 @@ public void Warden_OnPluginStart()
 
     HookEvent("player_death", Warden_OnPlayerDeath);
     HookEvent("player_disconnect", Warden_OnPlayerDisconnect);
+    HookEvent("round_start", Warden_OnRoundBegin);
     HookEvent("round_end", Warden_OnRoundEnd);
 }
 
@@ -184,6 +185,11 @@ public void Warden_OnPlayerDisconnect(Handle event, const char[] name, bool dont
         PrintToChatAll("%s The Warden has left the game!", WARDEN_PREFIX);
         Callback_RemoveWarden();
     }
+}
+
+public void Warden_OnRoundBegin(Handle event, const char[] name, bool dontBroadcast)
+{
+    Callback_RemoveWarden(true);
 }
 
 public void Warden_OnRoundEnd(Handle event, const char[] name, bool dontBroadcast)
