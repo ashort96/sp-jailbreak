@@ -74,5 +74,7 @@ public Action Timer_PrintWardenHud(Handle timer)
         }
     }
 
+    CloseHandle(hudText);
+
     return Plugin_Continue;
 }

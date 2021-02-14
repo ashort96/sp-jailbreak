@@ -121,6 +121,8 @@ public Action Timer_PrintWardayHud(Handle timer, DataPack hPack)
             ShowSyncHudText(i, hudText, buf);
         }
     }
+
+    CloseHandle(hudText);
     
     return Plugin_Continue;
 
