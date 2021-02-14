@@ -183,7 +183,7 @@ public void Warden_OnPlayerDisconnect(Handle event, const char[] name, bool dont
     if (g_WardenID == client)
     {
         PrintToChatAll("%s The Warden has left the game!", WARDEN_PREFIX);
-        Callback_RemoveWarden();
+        Callback_RemoveWarden(true);
     }
 }
 
