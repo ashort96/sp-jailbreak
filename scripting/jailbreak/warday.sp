@@ -31,6 +31,8 @@ public void Warday_OnPluginStart()
 
     RegConsoleCmd("sm_warday", Command_Warday);
 
+    RegAdminCmd("sm_awarday", Command_AdminWarday, ADMFLAG_CHANGEMAP);
+
     HookEvent("round_start", Warday_OnRoundStart);
     HookEvent("round_end", Warday_OnRoundEnd);
 }
@@ -77,6 +79,32 @@ public Action Command_Warday(int client, int args)
     EmitSoundToAll(sound);
     PrintCenterTextAll("WARDAY!!!");
     return Plugin_Handled;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Admin Commands
+///////////////////////////////////////////////////////////////////////////////
+public Action Command_AdminWarday(int client, int args)
+{
+    if (args < 1)
+    {
+        PrintToChat(client, "%s You must specify a location!");
+        return Plugin_Handled;
+    }
+
+    char location[32];
+    GetCmdArgString(location, sizeof(location));
+
+    g_WardenHudEnable = false;
+    g_WardayActive = true;
+
+    DataPack hPack;
+    CreateDataTimer(1.0, Timer_PrintWardayHud, hPack, TIMER_REPEAT);
+    hPack.WriteString(location);
+    EmitSoundToAll(sound);
+    PrintCenterTextAll("WARDAY!!!");
+    return Plugin_Handled;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
