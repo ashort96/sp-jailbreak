@@ -32,6 +32,7 @@ public void Warday_OnPluginStart()
     RegConsoleCmd("sm_warday", Command_Warday);
 
     RegAdminCmd("sm_awarday", Command_AdminWarday, ADMFLAG_CHANGEMAP);
+    RegAdminCmd("sm_cwarday", Command_CancelWarday, ADMFLAG_KICK);
 
     HookEvent("round_start", Warday_OnRoundStart);
     HookEvent("round_end", Warday_OnRoundEnd);
@@ -88,7 +89,13 @@ public Action Command_AdminWarday(int client, int args)
 {
     if (args < 1)
     {
-        PrintToChat(client, "%s You must specify a location!");
+        PrintToChat(client, "%s You must specify a location!", JB_PREFIX);
+        return Plugin_Handled;
+    }
+
+    if (g_WardayActive)
+    {
+        PrintToChat(client, "%s There is already a warday! To cancel type !cwarday", JB_PREFIX);
         return Plugin_Handled;
     }
 
@@ -105,6 +112,20 @@ public Action Command_AdminWarday(int client, int args)
     PrintCenterTextAll("WARDAY!!!");
     return Plugin_Handled;
 
+}
+
+public Action Command_CancelWarday(int client, int args)
+{
+    if (!g_WardayActive)
+    {
+        PrintToChat(client, "%s There is not an active warday!", JB_PREFIX);
+        return Plugin_Handled;
+    }
+
+    g_WardayActive = false;
+    g_WardenHudEnable = true;
+
+    return Plugin_Handled;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
