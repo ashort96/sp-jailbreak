@@ -57,7 +57,7 @@ public Action Command_Warday(int client, int args)
 
     if (args < 1)
     {
-        PrintToChat(client, "%s You must specify a location!");
+        PrintToChat(client, "%s You must specify a location!", JB_PREFIX);
         return Plugin_Handled;
     }
 
