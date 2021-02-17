@@ -49,22 +49,22 @@ stock bool g_WardenHudEnable = true;
 
 /**
 * Get the ID of the Warden
-* @return ClientID of the Warden
+* @return   ClientID of the Warden
 */
 native int GetWardenID();
 /**
 * Remove the Warden
-* @return none
+* @return   none
 */
 native any RemoveWarden();
 /**
 * Re-enable the ability to become Warden
-* @return none
+* @return   none
 */
 native any EnableWarden();
 /**
 * Disable the ability to become Warden and remove the current Warden
-* @return none
+* @return   none
 */
 native any DisableWarden();
 
@@ -74,12 +74,12 @@ native any DisableWarden();
 
 /**
 * Enables the Warden text to show on the hud
-* @return none
+* @return   none
 */
 native any EnableWardenHud();
 /**
 * Disable the Warden text from showing on the hud
-* @return none
+* @return   none
 */
 native any DisableWardenHud();
 
