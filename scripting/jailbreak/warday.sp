@@ -48,6 +48,7 @@ public void Warday_OnMapStart()
 ///////////////////////////////////////////////////////////////////////////////
 public Action Command_Warday(int client, int args)
 {
+
     if (client != g_WardenID)
     {
         PrintToChat(client, "%s Only the Warden may call a Warday!", JB_PREFIX);
@@ -56,12 +57,9 @@ public Action Command_Warday(int client, int args)
 
     if (args < 1)
     {
-        PrintToChat(client, "%s You must specify a location!");
+        PrintToChat(client, "%s You must specify a location!", JB_PREFIX);
         return Plugin_Handled;
     }
-
-    char location[32];
-    GetCmdArgString(location, sizeof(location));
 
     if (g_WardayRoundCooldown > 0)
     {
@@ -69,17 +67,15 @@ public Action Command_Warday(int client, int args)
         return Plugin_Handled;
     }
 
+    char location[32];
+    GetCmdArgString(location, sizeof(location));
+
     g_WardayRoundCooldown = WARDAY_COOLDOWN + 1;
 
-    g_WardenHudEnable = false;
-    g_WardayActive = true;
+    Callback_Warday(location);
 
-    DataPack hPack;
-    CreateDataTimer(1.0, Timer_PrintWardayHud, hPack, TIMER_REPEAT);
-    hPack.WriteString(location);
-    EmitSoundToAll(sound);
-    PrintCenterTextAll("WARDAY!!!");
     return Plugin_Handled;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -87,6 +83,7 @@ public Action Command_Warday(int client, int args)
 ///////////////////////////////////////////////////////////////////////////////
 public Action Command_AdminWarday(int client, int args)
 {
+
     if (args < 1)
     {
         PrintToChat(client, "%s You must specify a location!", JB_PREFIX);
@@ -99,17 +96,13 @@ public Action Command_AdminWarday(int client, int args)
         return Plugin_Handled;
     }
 
+    LogAction(client, -1, "Admin warday called");
+
     char location[32];
     GetCmdArgString(location, sizeof(location));
 
-    g_WardenHudEnable = false;
-    g_WardayActive = true;
+    Callback_Warday(location);
 
-    DataPack hPack;
-    CreateDataTimer(1.0, Timer_PrintWardayHud, hPack, TIMER_REPEAT);
-    hPack.WriteString(location);
-    EmitSoundToAll(sound);
-    PrintCenterTextAll("WARDAY!!!");
     return Plugin_Handled;
 
 }
@@ -121,6 +114,11 @@ public Action Command_CancelWarday(int client, int args)
         PrintToChat(client, "%s There is not an active warday!", JB_PREFIX);
         return Plugin_Handled;
     }
+
+    PrintCenterTextAll("Warden cancelled!");
+    PrintToChatAll("%s Warday cancelled by %N!", JB_PREFIX, client);
+
+    LogAction(client, -1, "Warday cancelled");
 
     g_WardayActive = false;
     g_WardenHudEnable = true;
@@ -175,4 +173,16 @@ public Action Timer_PrintWardayHud(Handle timer, DataPack hPack)
     
     return Plugin_Continue;
 
+}
+
+public void Callback_Warday(const char[] location)
+{
+    g_WardenHudEnable = false;
+    g_WardayActive = true;
+
+    DataPack hPack;
+    CreateDataTimer(1.0, Timer_PrintWardayHud, hPack, TIMER_REPEAT);
+    hPack.WriteString(location);
+    EmitSoundToAll(sound);
+    PrintCenterTextAll("WARDAY!!!");
 }

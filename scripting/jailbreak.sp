@@ -19,7 +19,7 @@
 #define PLUGIN_NAME         "CS:S Jailbreak"
 #define PLUGIN_AUTHOR       "organharvester, Jordi, Dunder"
 #define PLUGIN_DESCRIPTION  "Jailbreak Warden Plugin"
-#define PLUGIN_VERSION      "4.0"
+#define PLUGIN_VERSION      "4.1"
 #define PLUGIN_URL          ""
 
 #include <jailbreak>
