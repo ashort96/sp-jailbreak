@@ -122,6 +122,9 @@ public Action Command_CancelWarday(int client, int args)
         return Plugin_Handled;
     }
 
+    PrintCenterTextAll("Warden cancelled!");
+    PrintToChatAll("%s Warday cancelled by %N!", JB_PREFIX, client);
+
     g_WardayActive = false;
     g_WardenHudEnable = true;
 
