@@ -112,7 +112,7 @@ void Callback_EnableBlock(bool dontBroadcast = false)
 
 }
 
-void Callback_DisableBlock()
+void Callback_DisableBlock(bool dontBroadcast = false)
 {
     g_BlockEnabled = false;
 
@@ -122,6 +122,7 @@ void Callback_DisableBlock()
             SetEntityCollisionGroup(i, COLLISION_GROUP_DEBRIS_TRIGGER);
     }
 
-    PrintCenterTextAll("Noblock Enabled!");
+    if (!dontBroadcast)
+        PrintCenterTextAll("Noblock Enabled!");
 
 }
