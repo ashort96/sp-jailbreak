@@ -15,7 +15,6 @@ This is a refactored version of the plugin [organharvester](https://github.com/d
 !warday <location>  Call warday
 !awarday <location> Call warday (Admin)
 !cwarday            Cancel warday
-
 ```
 
 ## Forwards
