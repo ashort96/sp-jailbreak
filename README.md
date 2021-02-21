@@ -40,16 +40,19 @@ forward void Jailbreak_OnWardenRemove(int client);
 * @return   ClientID of the Warden
 */
 native int GetWardenID();
+
 /**
 * Remove the Warden
 * @return   none
 */
 native any RemoveWarden();
+
 /**
 * Re-enable the ability to become Warden
 * @return   none
 */
 native any EnableWarden();
+
 /**
 * Disable the ability to become Warden and remove the current Warden
 * @return   none
@@ -61,6 +64,7 @@ native any DisableWarden();
 * @return   none
 */
 native any EnableWardenHud();
+
 /**
 * Disable the Warden text from showing on the hud
 * @return   none
