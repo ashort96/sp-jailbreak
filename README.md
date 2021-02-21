@@ -56,7 +56,7 @@ native any RemoveWarden();
 native any EnableWarden();
 
 /**
-* Disable the ability to become Warden and remove the current Warden
+* Disable the ability to become Warden
 * @return   none
 */
 native any DisableWarden();
