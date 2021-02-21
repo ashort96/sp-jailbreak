@@ -5,15 +5,17 @@ This is a refactored version of the plugin [organharvester](https://github.com/d
 ```
 !w                  Become Warden
 !uw                 Leave Warden
-!rw                 Remove Warden   (Admin)
 !wb                 Enable block
 !wub                Enable noblock
-!block              Enable block    (Admin)
-!ublock             Enable noblock  (Admin)
 !laser              Show laser menu
 !marker             Show marker menu
+
+!rw                 Remove Warden   (Admin)
+!block              Enable block    (Admin)
+!ublock             Enable noblock  (Admin)
+
 !warday <location>  Call warday
-!awarday <location> Call warday (Admin)
+!awarday <location> Call warday     (Admin)
 !cwarday            Cancel warday
 ```
 
