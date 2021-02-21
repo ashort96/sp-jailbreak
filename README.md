@@ -18,7 +18,7 @@ This is a refactored version of the plugin [organharvester](https://github.com/d
 ```
 
 ## Forwards
-```
+```sp
 /**
 * Called when a client becomes Warden.
 * @param    client  Client index
@@ -34,7 +34,7 @@ forward void Jailbreak_OnWardenRemove(int client);
 ```
 
 ## Natives
-```
+```sp
 /**
 * Get the ID of the Warden
 * @return   ClientID of the Warden
