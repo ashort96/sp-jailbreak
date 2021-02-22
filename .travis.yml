@@ -1,0 +1,14 @@
+sudo: false
+language: c
+
+addons:
+  apt_packages:
+    - lib32stdc++6
+    - lftp
+
+
+matrix:
+  fast_finish: true
+
+script:
+  - bash build.sh

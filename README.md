@@ -1,6 +1,8 @@
 # sp-jailbreak
 This is a refactored version of the plugin [organharvester](https://github.com/destoer), Jordi, and I worked on over the past year or so. This version is slightly more modular, and should allow for easier changes as the components have been spread out.
 
+Build Status: ![Build Status](https://www.travis-ci.com/ashort96/sp-jailbreak.svg?branch=main)
+
 ## Commands
 ```
 !w                  Become Warden
