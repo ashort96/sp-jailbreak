@@ -11,4 +11,4 @@ matrix:
   fast_finish: true
 
 script:
-  - bash build.sh $SOURCEMOD
+  - bash build.sh
