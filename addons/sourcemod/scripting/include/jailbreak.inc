@@ -19,17 +19,20 @@
 #endif
 #define _jailbreak_included
 
-#define JB_PREFIX "\x04[GP Jailbreak]\x07F8F8FF"
-#define WARDEN_PREFIX "\x04[GP Warden]\x07F8F8FF"
-#define WARDEN_PLAYER_PREFIX "\x04[GP Warden]\x07B94FFF"
+// #define g_Prefix "\x04[GP Jailbreak]\x07F8F8FF"
+stock char g_Prefix[64];
+stock char g_WardenPrefix[64];
+stock char g_WardenChatPrefix[64];
+// #define g_WardenPrefix "\x04[GP Warden]\x07F8F8FF"
+// #define g_WardenChatPrefix "\x04[GP Warden]\x07B94FFF"
 
 #define COLOR_PURPLE {118, 9, 186, 255}
 
 ///////////////////////////////////////////////////////////////////////////////
 // Warday
 ///////////////////////////////////////////////////////////////////////////////
-#define WARDAY_COOLDOWN 3
-stock int g_WardayRoundCooldown = 0;
+stock int g_WardayCooldown;
+stock int g_WardayRoundCountdown = 0;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Warden

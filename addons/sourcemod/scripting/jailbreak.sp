@@ -19,7 +19,7 @@
 #define PLUGIN_NAME         "CS:S Jailbreak"
 #define PLUGIN_AUTHOR       "organharvester, Jordi, Dunder"
 #define PLUGIN_DESCRIPTION  "Jailbreak Warden Plugin"
-#define PLUGIN_VERSION      "4.1"
+#define PLUGIN_VERSION      "4.2"
 #define PLUGIN_URL          "https://github.com/ashort96/sp-jailbreak"
 
 #include <jailbreak>
@@ -36,6 +36,11 @@
 #include "jailbreak/warden.sp"
 #include "jailbreak/warden_hud.sp"
 #include "jailbreak/warden_text.sp"
+
+ConVar g_ConVarPrefix;
+ConVar g_ConVarWardenPrefix;
+ConVar g_ConVarWardenChatPrefix;
+ConVar g_ConVarWardayCooldown;
 
 public Plugin myinfo =
 {
@@ -74,6 +79,50 @@ public void OnPluginStart()
 
     HookEvent("player_spawn", OnPlayerSpawn);
 
+    g_ConVarPrefix = CreateConVar("sm_jailbreak_prefix", "[Jailbreak]", "Prefix for messages from the plugin");
+    g_ConVarPrefix.AddChangeHook(OnPrefixChange);
+    g_ConVarWardenPrefix = CreateConVar("sm_jailbreak_warden_prefix", "[Warden]", "Prefix for warden messages");
+    g_ConVarWardenPrefix.AddChangeHook(OnWardenPrefixChange);
+    g_ConVarWardenChatPrefix = CreateConVar("sm_jailbreak_warden_chat_prefix", "[Warden]", "Prefix for warden chat messages");
+    g_ConVarWardenChatPrefix.AddChangeHook(OnWardenChatPrefixChange);
+    g_ConVarWardayCooldown = CreateConVar("sm_jailbreak_warday_cooldown", "3", "Number of rounds before another warday", 0, true, 0.0);
+    g_ConVarWardenChatPrefix.AddChangeHook(OnWardayCooldownChange);
+
+    char tmpbuffer[32];
+    g_ConVarPrefix.GetString(tmpbuffer, sizeof(tmpbuffer));
+    Format(g_Prefix, sizeof(g_Prefix), "\x04%s\x07F8F8FF", tmpbuffer);
+
+    g_ConVarWardenPrefix.GetString(tmpbuffer, sizeof(tmpbuffer));
+    Format(g_WardenPrefix, sizeof(g_WardenPrefix), "\x04%s\x07F8F8FF", tmpbuffer);
+
+    g_ConVarWardenChatPrefix.GetString(tmpbuffer, sizeof(tmpbuffer));
+    Format(g_WardenChatPrefix, sizeof(g_WardenChatPrefix), "\x04%s\x07B94FFF", tmpbuffer);
+
+    AutoExecConfig(true);
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// ConVar Changes
+///////////////////////////////////////////////////////////////////////////////
+public void OnPrefixChange(ConVar convar, char[] oldValue, char[] newValue)
+{
+    Format(g_Prefix, sizeof(g_Prefix), "\x04%s\x07F8F8FF", newValue);
+}
+
+public void OnWardenPrefixChange(ConVar convar, char[] oldValue, char[] newValue)
+{
+    Format(g_WardenPrefix, sizeof(g_WardenPrefix), "\x04%s\x07F8F8FF", newValue);    
+}
+
+public void OnWardenChatPrefixChange(ConVar convar, char[] oldValue, char[] newValue)
+{
+    Format(g_WardenChatPrefix, sizeof(g_WardenChatPrefix), "\x04%s\x07B94FFF", newValue);
+}
+
+public void OnWardayCooldownChange(ConVar convar, char[] oldValue, char[] newValue)
+{
+    g_WardayRoundCountdown = g_ConVarWardayCooldown.IntValue;
 }
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)

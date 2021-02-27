@@ -79,30 +79,30 @@ public Action Command_Warden(int client, int args)
     // Make sure there isn't already a Warden
     if (g_WardenID != INVALID_WARDEN)
     {
-        PrintToChat(client, "%s There is already a Warden!", WARDEN_PREFIX);
+        PrintToChat(client, "%s There is already a Warden!", g_WardenPrefix);
         return Plugin_Handled;
     }
 
     if (!IsPlayerAlive(client))
     {
-        PrintToChat(client, "%s You cannot Warden whilst dead!", WARDEN_PREFIX);
+        PrintToChat(client, "%s You cannot Warden whilst dead!", g_WardenPrefix);
         return Plugin_Handled;
     }
 
     if (!(GetClientTeam(client) == CS_TEAM_CT))
     {
-        PrintToChat(client, "%s Only CTs may become the Warden!", WARDEN_PREFIX);
+        PrintToChat(client, "%s Only CTs may become the Warden!", g_WardenPrefix);
         return Plugin_Handled;
     }
 
     if (!g_WardenEnable)
     {
-        PrintToChat(client, "%s Warden is currently disabled!", WARDEN_PREFIX);
+        PrintToChat(client, "%s Warden is currently disabled!", g_WardenPrefix);
         return Plugin_Handled;
     }
 
     PrintCenterTextAll("New Warden: %N", client);
-    PrintToChatAll("%s New Warden: %N", WARDEN_PREFIX, client);
+    PrintToChatAll("%s New Warden: %N", g_WardenPrefix, client);
 
     g_WardenID = client;
     SetEntityRenderColor(client, 118, 9, 186, 255);
@@ -121,9 +121,9 @@ public Action Command_Warden(int client, int args)
     // PrintToChat(client,"%s!wsd           %s- %sstart sd after %d rounds", color1, color2, color3, ROUND_WARDEN_SD);
 
 
-    if (g_WardayRoundCooldown == 0)
+    if (g_WardayRoundCountdown == 0)
     {
-        PrintToChat(client, "%s You can call a warday!", WARDEN_PREFIX);
+        PrintToChat(client, "%s You can call a warday!", g_WardenPrefix);
         PrintToChat(client, "%s!warday <location>", color1);
     }
 
@@ -136,7 +136,7 @@ public Action Command_Unwarden(int client, int args)
 {
     if (client != g_WardenID)
     {
-        PrintToChat(client, "%s You can't fire the Warden!", WARDEN_PREFIX);
+        PrintToChat(client, "%s You can't fire the Warden!", g_WardenPrefix);
         return Plugin_Handled;
     }
     Callback_RemoveWarden();
@@ -152,7 +152,7 @@ public Action Warden_OnJoinTeam(int client, int args)
 
     if (client == g_WardenID && newTeam != CS_TEAM_CT)
     {
-        PrintToChatAll("%s The Warden has left the team!", WARDEN_PREFIX);
+        PrintToChatAll("%s The Warden has left the team!", g_WardenPrefix);
         Callback_RemoveWarden();
     }
 }
@@ -182,7 +182,7 @@ public void Warden_OnPlayerDisconnect(Handle event, const char[] name, bool dont
     int client = GetClientOfUserId(GetEventInt(event, "userid"));
     if (g_WardenID == client)
     {
-        PrintToChatAll("%s The Warden has left the game!", WARDEN_PREFIX);
+        PrintToChatAll("%s The Warden has left the game!", g_WardenPrefix);
         Callback_RemoveWarden(true);
     }
 }
@@ -211,7 +211,7 @@ void Callback_RemoveWarden(bool dontBroadcast = false)
     if (!dontBroadcast)
     {
         PrintCenterTextAll("%N is no longer Warden!", g_WardenID);
-        PrintToChatAll("%s %N is no longer Warden!", WARDEN_PREFIX, g_WardenID);
+        PrintToChatAll("%s %N is no longer Warden!", g_WardenPrefix, g_WardenID);
     }
 
     FireOnWardenRemove(g_WardenID);
