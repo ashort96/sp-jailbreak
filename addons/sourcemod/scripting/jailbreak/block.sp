@@ -42,7 +42,7 @@ public Action Command_WardenBlock(int client, int args)
 {
     if (client != g_WardenID)
     {
-        PrintToChat(client, "%s Only the Warden can use this command!", JB_PREFIX);
+        PrintToChat(client, "%s Only the Warden can use this command!", g_Prefix);
         return Plugin_Handled;
     }
 
@@ -54,7 +54,7 @@ public Action Command_WardenUnblock(int client, int args)
 {
     if (client != g_WardenID)
     {
-        PrintToChat(client, "%s Only the Warden can use this command!", JB_PREFIX);
+        PrintToChat(client, "%s Only the Warden can use this command!", g_Prefix);
         return Plugin_Handled;
     }
 

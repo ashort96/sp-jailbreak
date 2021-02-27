@@ -53,7 +53,7 @@ public Action Command_MarkerMenu(int client, int args)
 {
     if (client != g_WardenID)
     {
-        PrintToChat(client, "%s Only the Warden can use the marker!", JB_PREFIX);
+        PrintToChat(client, "%s Only the Warden can use the marker!", g_Prefix);
         return Plugin_Handled;
     }
 

@@ -30,7 +30,7 @@ public Action OnClientSayCommand(int client, const char[] command, const char[] 
     {
         if (!CheckCommandAccess(client, "sm_say", ADMFLAG_CHAT))
         {
-            PrintToChatAll("%s %N %s: %s%s", WARDEN_PLAYER_PREFIX, client, color1, color2, sArgs);
+            PrintToChatAll("%s %N %s: %s%s", g_WardenChatPrefix, client, color1, color2, sArgs);
             LogAction(client, -1, "[Warden] %N : %s", client, sArgs);
             return Plugin_Handled;
         }
@@ -38,7 +38,7 @@ public Action OnClientSayCommand(int client, const char[] command, const char[] 
         {
             if (sArgs[0] != '@')
             {
-                PrintToChatAll("%s %N %s: %s%s", WARDEN_PLAYER_PREFIX, client, color1, color2, sArgs);
+                PrintToChatAll("%s %N %s: %s%s", g_WardenChatPrefix, client, color1, color2, sArgs);
                 LogAction(client, -1, "[Warden] %N : %s", client, sArgs);
                 return Plugin_Handled;
             }
@@ -53,7 +53,7 @@ public Action OnClientSayCommand(int client, const char[] command, const char[] 
             {
                 if (sArgs[0] != '@')
                 {
-                    PrintToChat(i, "\x01(Counter-Terrorist) %s %N %s: %s%s", WARDEN_PLAYER_PREFIX, client, color1, color2, sArgs);
+                    PrintToChat(i, "\x01(Counter-Terrorist) %s %N %s: %s%s", g_WardenChatPrefix, client, color1, color2, sArgs);
                 }
             }
         }

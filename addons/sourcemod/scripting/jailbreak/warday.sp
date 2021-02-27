@@ -51,26 +51,26 @@ public Action Command_Warday(int client, int args)
 
     if (client != g_WardenID)
     {
-        PrintToChat(client, "%s Only the Warden may call a Warday!", JB_PREFIX);
+        PrintToChat(client, "%s Only the Warden may call a Warday!", g_Prefix);
         return Plugin_Handled;
     }
 
     if (args < 1)
     {
-        PrintToChat(client, "%s You must specify a location!", JB_PREFIX);
+        PrintToChat(client, "%s You must specify a location!", g_Prefix);
         return Plugin_Handled;
     }
 
-    if (g_WardayRoundCooldown > 0)
+    if (g_WardayRoundCountdown > 0)
     {
-        PrintToChat(client, "%s You must wait %d more round(s) before calling a Warday!", JB_PREFIX, g_WardayRoundCooldown);
+        PrintToChat(client, "%s You must wait %d more round(s) before calling a Warday!", g_Prefix, g_WardayRoundCountdown);
         return Plugin_Handled;
     }
 
     char location[32];
     GetCmdArgString(location, sizeof(location));
 
-    g_WardayRoundCooldown = WARDAY_COOLDOWN + 1;
+    g_WardayRoundCountdown = g_WardayCooldown + 1;
 
     Callback_Warday(location);
 
@@ -86,13 +86,13 @@ public Action Command_AdminWarday(int client, int args)
 
     if (args < 1)
     {
-        PrintToChat(client, "%s You must specify a location!", JB_PREFIX);
+        PrintToChat(client, "%s You must specify a location!", g_Prefix);
         return Plugin_Handled;
     }
 
     if (g_WardayActive)
     {
-        PrintToChat(client, "%s There is already a warday! To cancel type !cwarday", JB_PREFIX);
+        PrintToChat(client, "%s There is already a warday! To cancel type !cwarday", g_Prefix);
         return Plugin_Handled;
     }
 
@@ -111,12 +111,12 @@ public Action Command_CancelWarday(int client, int args)
 {
     if (!g_WardayActive)
     {
-        PrintToChat(client, "%s There is not an active warday!", JB_PREFIX);
+        PrintToChat(client, "%s There is not an active warday!", g_Prefix);
         return Plugin_Handled;
     }
 
     PrintCenterTextAll("Warden cancelled!");
-    PrintToChatAll("%s Warday cancelled by %N!", JB_PREFIX, client);
+    PrintToChatAll("%s Warday cancelled by %N!", g_Prefix, client);
 
     LogAction(client, -1, "Warday cancelled");
 
@@ -132,8 +132,8 @@ public Action Command_CancelWarday(int client, int args)
 public void Warday_OnRoundStart(Handle event, const char[] name, bool dontBroadcast)
 {
 
-    if (g_WardayRoundCooldown > 0)
-        g_WardayRoundCooldown--;
+    if (g_WardayRoundCountdown > 0)
+        g_WardayRoundCountdown--;
     
     g_WardenHudEnable = true;
 

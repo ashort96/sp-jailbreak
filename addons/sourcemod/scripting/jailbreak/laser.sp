@@ -96,7 +96,7 @@ public Action Command_Laser(int client, int args)
 {
     if (!IsValidClient(client) || client != g_WardenID)
     {
-        PrintToChat(client, "%s Only the Warden may use the laser!", JB_PREFIX);
+        PrintToChat(client, "%s Only the Warden may use the laser!", g_Prefix);
         return Plugin_Handled;
     }
 
@@ -149,26 +149,26 @@ public int MenuHandler_Laser(Menu menu, MenuAction action, int client, int param
             {
                 g_LaserEnabled = true;
                 g_DrawLaser = false;
-                PrintToChat(client, "%s Normal Laser enabled", JB_PREFIX);
+                PrintToChat(client, "%s Normal Laser enabled", g_Prefix);
             }
             case 2:
             {
                 if (!CheckCommandAccess(client, "sm_jailbreak_use_draw_laser", ADMFLAG_RESERVATION))
                 {
-                    PrintToChat(client, "%s Only Members and above can use this!", JB_PREFIX);
+                    PrintToChat(client, "%s Only Members and above can use this!", g_Prefix);
                 }
                 else
                 {
                     g_LaserEnabled = true;
                     g_DrawLaser = true;
-                    PrintToChat(client, "%s Draw Laser enabled", JB_PREFIX);                    
+                    PrintToChat(client, "%s Draw Laser enabled", g_Prefix);                    
                 }
             }
             case 3:
             {
                 g_LaserEnabled = false;
                 g_DrawLaser = false;
-                PrintToChat(client, "%s Laser disabled", JB_PREFIX);
+                PrintToChat(client, "%s Laser disabled", g_Prefix);
             }
         }
 
