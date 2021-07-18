@@ -19,7 +19,7 @@
 #define PLUGIN_NAME         "CS:S Jailbreak"
 #define PLUGIN_AUTHOR       "organharvester, Jordi, Dunder"
 #define PLUGIN_DESCRIPTION  "Jailbreak Warden Plugin"
-#define PLUGIN_VERSION      "4.2"
+#define PLUGIN_VERSION      "4.3"
 #define PLUGIN_URL          "https://github.com/ashort96/sp-jailbreak"
 
 #include <jailbreak>
@@ -86,7 +86,7 @@ public void OnPluginStart()
     g_ConVarWardenChatPrefix = CreateConVar("sm_jailbreak_warden_chat_prefix", "[Warden]", "Prefix for warden chat messages");
     g_ConVarWardenChatPrefix.AddChangeHook(OnWardenChatPrefixChange);
     g_ConVarWardayCooldown = CreateConVar("sm_jailbreak_warday_cooldown", "3", "Number of rounds before another warday", 0, true, 0.0);
-    g_ConVarWardenChatPrefix.AddChangeHook(OnWardayCooldownChange);
+    g_ConVarWardayCooldown.AddChangeHook(OnWardayCooldownChange);
 
     char tmpbuffer[32];
     g_ConVarPrefix.GetString(tmpbuffer, sizeof(tmpbuffer));
@@ -97,6 +97,8 @@ public void OnPluginStart()
 
     g_ConVarWardenChatPrefix.GetString(tmpbuffer, sizeof(tmpbuffer));
     Format(g_WardenChatPrefix, sizeof(g_WardenChatPrefix), "\x04%s\x07B94FFF", tmpbuffer);
+
+    g_WardayCooldown = g_ConVarWardayCooldown.IntValue;
 
     AutoExecConfig(true);
 
@@ -122,7 +124,7 @@ public void OnWardenChatPrefixChange(ConVar convar, char[] oldValue, char[] newV
 
 public void OnWardayCooldownChange(ConVar convar, char[] oldValue, char[] newValue)
 {
-    g_WardayRoundCountdown = g_ConVarWardayCooldown.IntValue;
+    g_WardayCooldown = g_ConVarWardayCooldown.IntValue;
 }
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
