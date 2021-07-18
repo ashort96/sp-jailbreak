@@ -98,6 +98,8 @@ public void OnPluginStart()
     g_ConVarWardenChatPrefix.GetString(tmpbuffer, sizeof(tmpbuffer));
     Format(g_WardenChatPrefix, sizeof(g_WardenChatPrefix), "\x04%s\x07B94FFF", tmpbuffer);
 
+    g_WardayCooldown = g_ConVarWardayCooldown.IntValue;
+
     AutoExecConfig(true);
 
 }
@@ -122,7 +124,7 @@ public void OnWardenChatPrefixChange(ConVar convar, char[] oldValue, char[] newV
 
 public void OnWardayCooldownChange(ConVar convar, char[] oldValue, char[] newValue)
 {
-    g_WardayRoundCountdown = g_ConVarWardayCooldown.IntValue;
+    g_WardayCooldown = g_ConVarWardayCooldown.IntValue;
 }
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
