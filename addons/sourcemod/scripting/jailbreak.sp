@@ -86,7 +86,7 @@ public void OnPluginStart()
     g_ConVarWardenChatPrefix = CreateConVar("sm_jailbreak_warden_chat_prefix", "[Warden]", "Prefix for warden chat messages");
     g_ConVarWardenChatPrefix.AddChangeHook(OnWardenChatPrefixChange);
     g_ConVarWardayCooldown = CreateConVar("sm_jailbreak_warday_cooldown", "3", "Number of rounds before another warday", 0, true, 0.0);
-    g_ConVarWardenChatPrefix.AddChangeHook(OnWardayCooldownChange);
+    g_ConVarWardayCooldown.AddChangeHook(OnWardayCooldownChange);
 
     char tmpbuffer[32];
     g_ConVarPrefix.GetString(tmpbuffer, sizeof(tmpbuffer));
